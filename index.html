@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROTOCOLO VERITAS - ACESSO RESTRITO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
+        
+        :root {
+            --neon-green: #00ff41;
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--neon-green);
+            font-family: 'Fira Code', monospace;
+            overflow-x: hidden;
+        }
+
+        .crt-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .terminal-input {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            outline: none;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .hidden-section { display: none; }
+
+        .censored {
+            background-color: var(--neon-green);
+            color: var(--neon-green);
+            transition: all 0.5s;
+        }
+        .censored:hover { background-color: transparent; }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        .cursor { animation: pulse 1s infinite; }
+
+        .glitch-text {
+            text-shadow: 1px 0 #f00, -1px 0 #00f;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+    <div class="crt-overlay"></div>
+
+    <!-- TELA DE LOGIN -->
+    <div id="login-screen" class="flex flex-col items-center justify-center min-h-[80vh] text-center">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold glitch-text uppercase tracking-widest mb-2">SISTEMA VERITAS</h1>
+            <p class="text-xs opacity-60 italic">AGUARDANDO AUTENTICAÇÃO DE CREDENCIAIS...</p>
+        </div>
+        
+        <div class="w-full max-w-md p-6 border border-green-900 bg-zinc-950 shadow-[0_0_20px_rgba(0,255,65,0.1)]">
+            <label class="block mb-4 text-sm">INSIRA SEU CÓDIGO DE AGENTE:</label>
+            <input type="password" id="agent-code" class="terminal-input text-center text-2xl tracking-widest mb-6" maxlength="6" autofocus>
+            <button onclick="verificarCodigo()" class="block w-full border border-green-500 py-2 hover:bg-green-500 hover:text-black transition-all">EXECUTAR LOGIN</button>
+            <p id="login-error" class="text-red-500 mt-4 text-xs hidden">ACESSO NEGADO: CÓDIGO INVÁLIDO</p>
+        </div>
+    </div>
+
+    <!-- CONTEÚDO DO CONVITE (INVISÍVEL ATÉ O LOGIN) -->
+    <div id="main-content" class="hidden-section max-w-3xl mx-auto space-y-10">
+        
+        <!-- HEADER -->
+        <header class="border-b border-green-900 pb-4 flex justify-between items-end">
+            <div>
+                <h2 class="text-2xl font-bold uppercase">Dossiê: Noite das Conspirações</h2>
+                <p class="text-xs opacity-70">STATUS: DESCLASSIFICADO PARA O AGENTE <span id="display-id"></span></p>
+            </div>
+            <div class="text-right text-[10px] hidden md:block">
+                IP: 192.168.0.<span id="random-ip"></span><br>
+                ESTADO: LOCALIZADO
+            </div>
+        </header>
+
+        <!-- AGENDA -->
+        <section>
+            <h3 class="bg-green-900 text-black px-2 inline-block font-bold mb-4">I. CRONOGRAMA DA OPERAÇÃO</h3>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="border border-green-900 p-4">
+                    <p class="font-bold border-b border-green-900 mb-2">HORÁRIO</p>
+                    <ul class="text-sm space-y-2">
+                        <li>20:00 - Recepção e Triagem</li>
+                        <li>20:30 - Serviço de "Elixires da Verdade"</li>
+                        <li>21:00 - Apresentação: Engenharia do Vazio</li>
+                        <li>22:30 - Debate e Análise de Evidências</li>
+                        <li>23:30 - Cinema Conspiratório</li>
+                    </ul>
+                </div>
+                <div class="border border-green-900 p-4">
+                    <p class="font-bold border-b border-green-900 mb-2">CINEMA DE BUNKER</p>
+                    <div class="text-sm">
+                        <p class="italic text-green-300">"They Live" (1988)</p>
+                        <p class="mt-2 text-[10px] opacity-70">Sinopse: Um andarilho descobre óculos que permitem ver que a elite mundial são alienígenas que controlam a humanidade através de mensagens subliminares.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MENU -->
+        <section>
+            <h3 class="bg-green-900 text-black px-2 inline-block font-bold mb-4">II. SUPRIMENTOS (MENU)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                <div>
+                    <h4 class="font-bold mb-2 underline">SNACKS (AIRFRYER)</h4>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Chips de Tortilla "Vigilância"</li>
+                        <li>Grão-de-Bico Crocante "Biohack"</li>
+                        <li>Bolinhos de Queijo "Nuvem de Dados"</li>
+                        <li>Dips: Hummus Área 51 & Maionese Alho Negro</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-2 underline">MOCKTAILS</h4>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>O Soro da Verdade (Gengibre & Citrus)</li>
+                        <li>Redacted (Uva, Tônica & Alecrim)</li>
+                        <li>Flúor Zero (Soda & Grenadine)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONFIRMAÇÃO -->
+        <section id="confirmation-area" class="border-2 border-dashed border-green-500 p-6 text-center">
+            <h3 class="text-xl font-bold mb-4">VOCÊ ACEITA A MISSÃO?</h3>
+            <p class="text-xs mb-6 opacity-80">Ao clicar em aceitar, um sinal criptografado será enviado ao host.</p>
+            <button id="btn-aceitar" onclick="enviarConfirmacao()" class="bg-green-600 text-black font-bold py-3 px-8 hover:bg-white transition-all">EU ACEITO A MISSÃO</button>
+            <div id="success-msg" class="hidden mt-4 text-white bg-green-900 p-2 animate-pulse">SINAL ENVIADO COM SUCESSO. DESTRUA ESTA MENSAGEM.</div>
+        </section>
+
+    </div>
+
+    <script>
+        // CONFIGURAÇÕES DO HOST
+        // 1. Crie uma conta no EmailJS.com (Grátis)
+        // 2. Substitua os IDs abaixo
+        const EMAILJS_PUBLIC_KEY = ""; // Insira sua Public Key do EmailJS aqui
+        const EMAILJS_SERVICE_ID = "service_default";
+        const EMAILJS_TEMPLATE_ID = "template_confirmacao";
+
+        // CÓDIGOS VÁLIDOS (Um para cada amigo)
+        const codigosValidos = {
+            "102030": "Agente Alpha",
+            "405060": "Agente Omega",
+            "708090": "Agente Phoenix",
+            "007007": "Agente Spectre"
+        };
+
+        let agenteLogado = "";
+
+        function verificarCodigo() {
+            const input = document.getElementById('agent-code').value;
+            const error = document.getElementById('login-error');
+            
+            if (codigosValidos[input]) {
+                agenteLogado = codigosValidos[input];
+                document.getElementById('login-screen').classList.add('hidden-section');
+                document.getElementById('main-content').classList.remove('hidden-section');
+                document.getElementById('display-id').innerText = agenteLogado;
+                document.getElementById('random-ip').innerText = Math.floor(Math.random() * 255);
+            } else {
+                error.classList.remove('hidden');
+                setTimeout(() => error.classList.add('hidden'), 2000);
+            }
+        }
+
+        function enviarConfirmacao() {
+            const btn = document.getElementById('btn-aceitar');
+            const msg = document.getElementById('success-msg');
+            
+            btn.innerText = "ENVIANDO SINAL...";
+            btn.disabled = true;
+
+            // Se você configurou o EmailJS, este bloco funcionará:
+            if(EMAILJS_PUBLIC_KEY !== "") {
+                emailjs.init(EMAILJS_PUBLIC_KEY);
+                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                    agent_name: agenteLogado,
+                    status: "CONFIRMADO",
+                    timestamp: new Date().toLocaleString()
+                }).then(() => {
+                    finalizar();
+                }).catch((err) => {
+                    console.error("Erro ao enviar e-mail:", err);
+                    finalizar(); // Finaliza mesmo se der erro no e-mail para não travar a UI
+                });
+            } else {
+                // Simulação caso não haja API Key ainda
+                setTimeout(finalizar, 2000);
+            }
+        }
+
+        function finalizar() {
+            document.getElementById('btn-aceitar').classList.add('hidden');
+            document.getElementById('success-msg').classList.remove('hidden');
+        }
+
+        // Permitir Enter no input
+        document.getElementById('agent-code').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') verificarCodigo();
+        });
+    </script>
+</body>
+</html>
