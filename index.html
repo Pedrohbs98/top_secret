@@ -71,6 +71,13 @@
         }
 
         .card-consp { border: 1px solid var(--low-green); background: rgba(0, 20, 0, 0.4); backdrop-filter: blur(5px); }
+        
+        .pulse-red { animation: pulse-red 2s infinite; }
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+        }
     </style>
 </head>
 <body class="p-4 md:p-10">
@@ -99,19 +106,31 @@
             <div>
                 <p class="text-[10px] text-green-700 font-bold mb-1">TOP SECRET // NOFORN</p>
                 <h2 class="text-3xl font-bold uppercase tracking-tight">DOSSIÊ: CONSPIRAÇÕES</h2>
-                <p class="text-xs opacity-70">AGENTE AUTORIZADO: <span id="display-id" class="text-green"></span></p>
+                <p class="text-xs opacity-70">AGENTE AUTORIZADO: <span id="display-id" class="text-white"></span></p>
             </div>
             <div class="text-right font-mono text-[10px] border border-green-900 p-2">
-                DATA: <span id="current-date"></span><br>
+                DATA: <span id="current-date">Sábado, 28 de Fevereiro, 2026 A.D.</span><br>
                 LOCALIZAÇÃO: <span class="censored">COORDENADAS OCULTAS</span>
             </div>
         </header>
 
-        <!-- AVISO DE SEGURANÇA -->
-        <div class="card-consp p-4 border-l-4 border-l-red-600 bg-red-900/10 text-xs">
-            <strong class="text-red-500 uppercase">Protocolo de Silêncio:</strong> 
-            Ao entrar, todos os dispositivos móveis serão armazenados em uma <span class="italic">Gaiola de Faraday</span> improvisada. Nenhuma gravação é permitida.
-        </div>
+        <!-- REQUISITOS DE MISSÃO (NOVO) -->
+        <section class="card-consp p-6 border-2 border-red-600/50 bg-red-900/5 pulse-red">
+            <h3 class="text-red-500 font-bold text-lg mb-4 flex items-center">
+                <span class="mr-2">⚠️</span> REQUISITOS OBRIGATÓRIOS DA MISSÃO
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6 text-sm">
+                <div class="space-y-2 border-l-2 border-red-600 pl-4">
+                    <p class="font-bold uppercase text-red-400">01. Briefing Individual</p>
+                    <p class="opacity-80">Cada agente deverá portar seu código de segurança para acesso ao evento.<span class="text-white underline">A ausencia do código resultará em detenção e eventual interrogatório.</span></p>
+                    <p class="opacity-80">Cada agente deverá apresentar sua própria Teoria da Conspiração. Tempo mínimo: <span class="text-white underline">10 minutos</span> de exposição ininterrupta.</p>
+                </div>
+                <div class="space-y-2 border-l-2 border-red-600 pl-4">
+                    <p class="font-bold uppercase text-red-400">02. Equipamento de Defesa Eletropsíquica</p>
+                    <p class="opacity-80">É recomendado o uso de <span class="text-white underline">Papel Alumínio</span> durante o briefing.</p>
+                </div>
+            </div>
+        </section>
 
         <!-- GRID DE INFORMAÇÕES -->
         <div class="grid md:grid-cols-3 gap-6">
@@ -119,29 +138,28 @@
             <section class="md:col-span-2 space-y-6">
                 <div class="card-consp p-6">
                     <h3 class="text-lg font-bold mb-4 flex items-center">
-                        <span class="mr-2">▶</span> CRONOGRAMA DA OPERAÇÃO
+                        <span class="mr-2">▶</span> CRONOGRAMA ATUALIZADO
                     </h3>
                     <div class="space-y-4 text-sm">
                         <div class="flex border-b border-green-900/30 pb-2">
-                            <span class="w-16 font-bold opacity-50">19:00</span>
-                            <span>Chegada e higienização de sinais digitais</span>
+                            <span class="w-16 font-bold opacity-50 text-[10px]">19:00</span>
+                            <span>Perímetro Aberto: Higienização e Faraday Box</span>
                         </div>
                         <div class="flex border-b border-green-900/30 pb-2">
-                            <span class="w-16 font-bold opacity-50">19:30</span>
-                            <span>Início da Degustação de Elixires e Ração de Bunker</span>
-                        </div>
-                        <!-- APRESENTAÇÕES -->
-                            <div class="flex border-b border-green-900/30 pb-2">
-                                <span class="w-16 font-bold opacity-50">19:45</span>
-                                <span>Apresentação: <span class="text-green">"A Engenharia do Vazio"</span></span>
+                            <span class="w-16 font-bold opacity-50 text-[10px]">19:30</span>
+                            <span>Distribuição de Elixires e Ração de Bunker</span>
                         </div>
                         <div class="flex border-b border-green-900/30 pb-2">
-                            <span class="w-16 font-bold opacity-50">21:30-22:00</span>
-                            <span>Debate em Mesa Redonda (Sem Atas)</span>
+                            <span class="w-16 font-bold opacity-50 text-[10px]">19:45</span>
+                            <span class="text-white font-bold">Início das Exposições dos Agentes (10 min cada)</span>
+                        </div>
+                        <div class="flex border-b border-green-900/30 pb-2">
+                            <span class="w-16 font-bold opacity-50 text-[10px]">21:00</span>
+                            <span class="glitch-text uppercase tracking-widest text-white">[ DOSSIÊ SECRETO DO HOST ]</span>
                         </div>
                         <div class="flex">
-                            <span class="w-16 font-bold opacity-50">22:00 (opcional)</span>
-                            <span>Projeção: <span class="italic font-serif">"Anon"</span></span>
+                            <span class="w-16 font-bold opacity-50 text-[10px]">22:30</span>
+                            <span>Projeção Final e Encerramento dos Sinais</span>
                         </div>
                     </div>
                 </div>
@@ -150,34 +168,33 @@
                     <h3 class="text-lg font-bold mb-4 flex items-center">
                         <span class="mr-2">▶</span> LOCAL DA REUNIÃO
                     </h3>
-                    <p class="text-sm mb-2">O ponto de encontro foi definido para evitar triangulação:</p>
                     <div class="bg-black p-3 border border-dashed border-green-700 text-center">
                         <span class="censored text-lg font-bold">RUA São Luís 1163, Partenon - Apto. 405</span>
                     </div>
-                    <p class="text-[10px] mt-2 opacity-50">* Passe o cursor/toque para revelar o endereço.</p>
+                    <p class="text-[10px] mt-2 opacity-50 text-center">* Proteja estas coordenadas com sua vida.</p>
                 </div>
             </section>
 
             <!-- COLUNA 2: SUPRIMENTOS -->
             <section class="space-y-6">
                 <div class="card-consp p-6 border-green-500/50">
-                    <h3 class="text-sm font-bold mb-4 uppercase text-green-400">Suprimentos Logísticos</h3>
+                    <h3 class="text-sm font-bold mb-4 uppercase text-green-400">Suprimentos no Evento</h3>
                     <div class="text-[11px] space-y-4">
                         <div>
-                            <p class="font-bold underline mb-1 uppercase">Opções de Sólidos:</p>
+                            <p class="font-bold underline mb-1 uppercase text-white">Sólidos:</p>
                             <ul class="space-y-1 opacity-80">
-                                <li>• Circulos de Cebola nas Plantações</li>
-                                <li>• Steaks de Frango Genéticamente Modificado</li>
+                                <li>• Círculos de Cebola nas Plantações</li>
+                                <li>• Steaks de Frango Geneticamente Modificado</li>
                                 <li>• Fritas do Arquivo Secreto</li>
-                                <li>• Dips: Maionese da Área 51, BlackRock Fryed Sauce, Agente Vermelho.</li>
+                                <li>• Dips: Maionese Área 51, BlackRock Sauce.</li>
                             </ul>
                         </div>
                         <div>
-                            <p class="font-bold underline mb-1 uppercase">Opções de Líquidos:</p>
+                            <p class="font-bold underline mb-1 uppercase text-white">Líquidos</p>
                             <ul class="space-y-1 opacity-80">
-                                <li>• Soro da Verdade (Xarope de Gengibre, água com gás e citrus, com toques de Hortelã)</li>
-                                <li>• Líquido Azul (Refrigerante de gengibre, suco de limão e isotônico azul)</li>
-                                <li>• Composto L21 (Suco de Laranja, tônica, xarope de limão)</li>
+                                <li>• Soro da Verdade (Gengibre & Hortelã)</li>
+                                <li>• Líquido Azul (Isotônico Hack)</li>
+                                <li>• Composto L21 (Citrus & Tônica)</li>
                             </ul>
                         </div>
                     </div>
@@ -188,25 +205,27 @@
         <!-- CONFIRMAÇÃO -->
         <section id="confirmation-area" class="border-2 border-green-500 p-8 text-center bg-green-500/5">
             <h3 class="text-2xl font-bold mb-2 glitch-text">AUTORIZAR PARTICIPAÇÃO?</h3>
-            <p class="text-xs mb-8 opacity-70">Sua confirmação enviará um pacote de dados único para o Host.</p>
+            <p class="text-xs mb-8 opacity-70">Ao confirmar, você se compromete com os requisitos da missão.</p>
             
             <button id="btn-aceitar" onclick="enviarConfirmacao()" class="group relative inline-flex items-center justify-center px-12 py-4 font-bold text-black transition-all duration-200 bg-green-500 font-pj hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
-                CONFIRMAR PRESENÇA
+                CONFIRMAR PRESENÇA E MISSÃO
             </button>
             
-            <div id="success-msg" class="hidden mt-6 p-4 border border-green-500 text-green-500 animate-pulse font-bold">
-                [OK] SINAL TRANSMITIDO. NOS VEMOS NA BASE.
+            <div id="success-msg" class="hidden mt-6 p-4 border border-green-500 bg-green-900/20 text-green-500 font-bold">
+                <p class="mb-2">[OK] SINAL TRANSMITIDO. PREPARE SEU DOSSIÊ.</p>
+                <div id="leak-content" class="text-[10px] font-mono p-3 bg-black border border-green-900 text-left animate-pulse">
+                    <!-- Conteúdo do Leak via JS -->
+                </div>
             </div>
         </section>
 
         <footer class="text-center pb-10">
-            <p class="text-[9px] opacity-40 uppercase tracking-[0.4em]">A verdade está lá fora. Mas atenção! Não confie em niguém.</p>
+            <p class="text-[9px] opacity-40 uppercase tracking-[0.4em]">A verdade está lá fora. Não confie em ninguém.</p>
         </footer>
     </div>
 
     <script>
-        // CONFIGURAÇÕES DO HOST
-        const EMAILJS_PUBLIC_KEY = ""; // Insira sua Public Key do EmailJS aqui
+        const EMAILJS_PUBLIC_KEY = ""; 
         const EMAILJS_SERVICE_ID = "service_default";
         const EMAILJS_TEMPLATE_ID = "template_confirmacao";
 
@@ -217,9 +236,15 @@
             "2903": "Agente G."
         };
 
+        const leaksPorAgente = {
+            "Agente Lost": "ERROR 404, agente não encontrado",
+            "Agente D.": "Seu código de segurança é SEAGULL",
+            "Agente P.": "Seu código de segurança é BEACH",
+            "Agente G.": "Seu código de segurança é WAVES"
+        };
+
         let agenteLogado = "";
 
-        // Set date
         document.getElementById('current-date').innerText = new Date().toLocaleDateString('pt-BR');
 
         function verificarCodigo() {
@@ -240,22 +265,21 @@
         function enviarConfirmacao() {
             const btn = document.getElementById('btn-aceitar');
             const msg = document.getElementById('success-msg');
+            const leakDiv = document.getElementById('leak-content');
             
             btn.innerHTML = "CRIPTOGRAFANDO...";
             btn.disabled = true;
             btn.style.opacity = "0.5";
 
+            leakDiv.innerText = leaksPorAgente[agenteLogado] || "LEAK_99: O sistema está sendo monitorado. Fique alerta.";
+
             if(EMAILJS_PUBLIC_KEY !== "") {
                 emailjs.init(EMAILJS_PUBLIC_KEY);
                 emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
                     agent_name: agenteLogado,
-                    status: "CONFIRMADO",
+                    status: "CONFIRMADO. MISSÃO ACEITA",
                     timestamp: new Date().toLocaleString()
-                }).then(() => {
-                    finalizar();
-                }).catch(() => {
-                    finalizar();
-                });
+                }).then(() => { finalizar(); }).catch(() => { finalizar(); });
             } else {
                 setTimeout(finalizar, 1500);
             }
